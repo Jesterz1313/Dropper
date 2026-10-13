@@ -271,20 +271,22 @@ export default function AdminPage() {
               <label className="text-xs text-blue-300 font-semibold uppercase tracking-wider">Email</label>
               <input
                 type="email"
+                placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full mt-1.5 bg-[#141e36] border border-blue-900/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
+                className="w-full mt-1.5 bg-[#141e36] border border-blue-900/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
               />
             </div>
             <div>
               <label className="text-xs text-blue-300 font-semibold uppercase tracking-wider">Password</label>
               <input
                 type="password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full mt-1.5 bg-[#141e36] border border-blue-900/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
+                className="w-full mt-1.5 bg-[#141e36] border border-blue-900/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
               />
             </div>
             <button
@@ -372,7 +374,7 @@ export default function AdminPage() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-400"
+                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
                   />
                 </div>
                 <div>
@@ -383,7 +385,7 @@ export default function AdminPage() {
                     value={artist}
                     onChange={(e) => setArtist(e.target.value)}
                     required
-                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-400"
+                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
                   />
                 </div>
               </div>
@@ -571,7 +573,7 @@ export default function AdminPage() {
                       className="p-2.5 bg-[#141e36]/60 border border-blue-950 rounded-xl flex justify-between items-center text-xs"
                     >
                       <span className="text-blue-200 font-mono">{c.email}</span>
-                      <span className="text-slate-500">{new Date(c.created_at).toLocaleDateString()}</span>
+                      <span className="text-slate-500">{new Date(c.created_at).toLocaleDateString('en-US')}</span>
                     </div>
                   ))
                 )}
