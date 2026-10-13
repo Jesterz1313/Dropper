@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import DownloadGate from './download-gate';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -159,34 +160,37 @@ export default function ReleaseGatePage({ params }: PageProps) {
 
         {/* Download Gate */}
         {release.download_url && (
-          <div className="w-full bg-[#101930] border border-blue-800/40 p-5 rounded-2xl shadow-inner">
-            <h3 className="text-sm font-bold text-white mb-1">Download Exclusive Track</h3>
-            <p className="text-xs text-blue-300/70 mb-4">Enter your email to unlock the download link</p>
-
-            {downloaded ? (
-              <div className="p-3 bg-blue-600/20 border border-blue-500/50 rounded-xl text-blue-300 text-xs font-bold">
-                🎉 Thanks! Download starting now.
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <input
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full bg-[#141e36] border border-blue-900/60 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
-                />
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
-                >
-                  {submitting ? 'Unlocking...' : 'Get Track'}
-                </button>
-              </form>
-            )}
-          </div>
+      <DownloadGate
+            releaseId={release.id}
+            downloadUrl={release.download_url}
+            trackTitle={release.title}
+            socialSteps={[
+              release.spotify_url && {
+                id: 'spotify',
+                label: 'Follow on Spotify',
+                url: release.spotify_url,
+                icon: '🟢',
+              },
+              release.soundcloud_url && {
+                id: 'soundcloud',
+                label: 'Follow on SoundCloud',
+                url: release.soundcloud_url,
+                icon: '🟠',
+              },
+              release.instagram_url && {
+                id: 'instagram',
+                label: 'Follow on Instagram',
+                url: release.instagram_url,
+                icon: '📸',
+              },
+              release.telegram_url && {
+                id: 'telegram',
+                label: 'Join Telegram',
+                url: release.telegram_url,
+                icon: '✈️',
+              },
+            ].filter(Boolean) as any}
+          />
         )}
       </div>
 

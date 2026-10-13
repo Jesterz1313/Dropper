@@ -44,6 +44,7 @@ export default function AdminPage() {
   const [appleMusicUrl, setAppleMusicUrl] = useState('');
   const [telegramUrl, setTelegramUrl] = useState('');
   const [soundcloudUrl, setSoundcloudUrl] = useState('');
+  const [instagramUrl, setInstagramUrl] = useState('');
 
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -191,6 +192,7 @@ export default function AdminPage() {
           apple_music_url: appleMusicUrl || null,
           telegram_url: telegramUrl || null,
           soundcloud_url: soundcloudUrl || null,
+          instagram_url: instagramUrl || null,
         },
       ]);
 
@@ -203,6 +205,7 @@ export default function AdminPage() {
       setAppleMusicUrl('');
       setTelegramUrl('');
       setSoundcloudUrl('');
+      setInstagramUrl('');
       setCoverFile(null);
       loadUserData(session.user.id);
     } catch (err: any) {
@@ -449,6 +452,15 @@ export default function AdminPage() {
                   />
                 </div>
                 <div>
+            <label className="text-xs font-semibold text-blue-300">Instagram URL</label>
+            <input
+              type="url"
+              placeholder="https://instagram.com/..."
+              value={instagramUrl}
+              onChange={(e) => setInstagramUrl(e.target.value)}
+              className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+            />
+            </div>
                   <label className="text-xs font-semibold text-blue-300">Telegram URL</label>
                   <input
                     type="url"
