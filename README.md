@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hypeddit
 
-## Getting Started
+Smart Link и Download Gate для музыкальных релизов на Next.js, Tailwind CSS и Supabase.
 
-First, run the development server:
+## Запуск
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Без настройки Supabase страница `/midnight-drive` показывает демо-релиз. Панель артиста находится по адресу `/admin`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Добавьте в `.env.local` URL проекта и публичный anon/publishable key (не service-role key):
 
-## Learn More
+```dotenv
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-To learn more about Next.js, take a look at the following resources:
+Приложение ожидает таблицу `releases` с полями `id`, `slug`, `title`, `artist`, `cover_url`, `spotify_url`, `apple_music_url`, `telegram_url`, `soundcloud_url`, `download_url`, `created_at`, а также таблицу `contacts` с полями `id`, `email`, `release_id`, `created_at`. Поле `contacts.release_id` должно ссылаться на `releases.id`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Включите RLS и настройте политики Supabase: публичное чтение опубликованных релизов и добавление контакта для Download Gate; создание релизов и чтение контактов разрешайте только авторизованным администраторам. Создайте пользователя администратора в Supabase Auth. Панель `/admin` использует вход по email/паролю и проверяет разрешения запросами к базе; anon key не заменяет политики доступа.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Поля ссылок на платформы, обложки и файл могут быть `NULL`. Slug используется в URL `/<slug>`.
