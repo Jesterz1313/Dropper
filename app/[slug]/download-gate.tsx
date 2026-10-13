@@ -1,116 +1,105 @@
-"use client";
+'use client';
 
-import { useState, type FormEvent } from "react";
-import { Download, LoaderCircle, Mail } from "lucide-react";
-import { supabase, type ReleaseData } from "@/lib/supabase";
+import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
+
+interface DownloadGateProps {
+  releaseId: string;
+  downloadUrl?: string | null;
+  trackTitle: string;
+}
 
 export default function DownloadGate({
-  release,
-  isDemo,
-}: {
-  release: ReleaseData;
-  isDemo: boolean;
-}) {
-  const [email, setEmail] = useState("");
-  const [isSaving, setIsSaving] = useState(false);
-  const [downloadReady, setDownloadReady] = useState(false);
-  const [message, setMessage] = useState("");
+  releaseId,
+  downloadUrl,
+  trackTitle,
+}: DownloadGateProps) {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setMessage("");
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
 
-    if (isDemo || !supabase) {
-      setMessage("Это демо-режим: email не сохраняется и файл недоступен.");
-      return;
+    setLoading(true);
+    setErrorMsg('');
+
+    try {
+      const { error } = await supabase.from('contacts').insert([
+        {
+          release_id: releaseId,
+          email: email.trim().toLowerCase(),
+        },
+      ]);
+
+      if (error && error.code !== '23505') {
+        throw error;
+      }
+
+      setUnlocked(true);
+
+      if (downloadUrl) {
+        window.open(downloadUrl, '_blank');
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Error unlocking download link');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    if (!release.download_url) {
-      setMessage("Файл для скачивания пока не добавлен.");
-      return;
-    }
-
-    setIsSaving(true);
-    const { error } = await supabase
-      .from("contacts")
-      .insert({ email, release_id: release.id });
-    setIsSaving(false);
-
-    if (error) {
-      console.error("Unable to save download-gate contact:", error.message);
-      setMessage("Не получилось сохранить email. Попробуйте ещё раз позже.");
-      return;
-    }
-
-    setDownloadReady(true);
-    setMessage("Готово! Ваш файл можно скачать.");
-  }
+  if (!downloadUrl) return null;
 
   return (
-    <section className="mt-8 w-full rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
-      <div className="mb-4 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-lime-300/10 text-lime-300">
-          <Download aria-hidden="true" className="h-5 w-5" />
-        </div>
-        <div>
-          <h2 className="font-semibold">Скачать эксклюзивный трек</h2>
-          <p className="mt-0.5 text-xs text-zinc-400">
-            Оставьте email, чтобы получить файл
-          </p>
-        </div>
+    <div className="mt-8 p-6 bg-[#0c1324] border border-blue-900/40 rounded-3xl shadow-xl max-w-md w-full mx-auto text-center">
+      <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl border border-blue-500/30">
+        ⬇
       </div>
+      <h3 className="text-lg font-bold text-white mb-1">Free Download</h3>
+      <p className="text-xs text-slate-400 mb-6">
+        Enter your email to unlock the high-quality download of <span className="text-blue-300 font-semibold">{trackTitle}</span>.
+      </p>
 
-      {!downloadReady ? (
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <label className="sr-only" htmlFor="download-email">
-            Ваш email
-          </label>
-          <div className="flex h-12 items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-3">
-            <Mail aria-hidden="true" className="h-4 w-4 shrink-0 text-zinc-500" />
-            <input
-              id="download-email"
-              type="email"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="you@example.com"
-              className="h-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-600"
-            />
-          </div>
+      {unlocked ? (
+        <div className="space-y-4">
+          <p className="text-xs font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 py-2.5 px-4 rounded-xl">
+            ✓ Link Unlocked!
+          </p>
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block w-full py-3.5 bg-blue-600 hover:bg-blue-500 font-bold text-white text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all uppercase tracking-wider"
+          >
+            Download Now ↗
+          </a>
+        </div>
+      ) : (
+        <form onSubmit={handleUnlock} className="space-y-3">
+          {errorMsg && (
+            <p className="text-xs text-rose-400 bg-rose-950/40 p-2.5 rounded-xl border border-rose-900/50">
+              {errorMsg}
+            </p>
+          )}
+          <input
+            type="email"
+            placeholder="fan@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+          />
           <button
             type="submit"
-            disabled={isSaving}
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-lime-300 px-4 text-sm font-bold text-black transition hover:bg-lime-200 disabled:cursor-wait disabled:opacity-70"
+            disabled={loading}
+            className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all uppercase tracking-wider cursor-pointer"
           >
-            {isSaving ? (
-              <LoaderCircle aria-hidden="true" className="h-4 w-4 animate-spin" />
-            ) : (
-              <Download aria-hidden="true" className="h-4 w-4" />
-            )}
-            {isSaving ? "Сохраняем…" : "Получить файл"}
+            {loading ? 'Unlocking...' : 'Unlock Download'}
           </button>
         </form>
-      ) : (
-        <a
-          href={release.download_url ?? undefined}
-          target="_blank"
-          rel="noreferrer"
-          className="flex h-12 items-center justify-center gap-2 rounded-xl bg-lime-300 px-4 text-sm font-bold text-black transition hover:bg-lime-200"
-        >
-          <Download aria-hidden="true" className="h-4 w-4" />
-          Скачать трек
-        </a>
       )}
-
-      {message && (
-        <p className="mt-3 text-xs leading-5 text-zinc-300" role="status">
-          {message}
-        </p>
-      )}
-      <p className="mt-3 text-center text-[11px] leading-4 text-zinc-500">
-        Нажимая кнопку, вы соглашаетесь получать новости артиста.
-      </p>
-    </section>
+    </div>
   );
 }
