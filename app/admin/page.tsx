@@ -450,8 +450,7 @@ export default function AdminPage() {
                     onChange={(e) => setSoundcloudUrl(e.target.value)}
                     className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400"
                   />
-                </div>
-                <div>
+             <div>
             <label className="text-xs font-semibold text-blue-300">Instagram URL</label>
             <input
               type="url"
@@ -460,18 +459,21 @@ export default function AdminPage() {
               onChange={(e) => setInstagramUrl(e.target.value)}
               className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
             />
-            </div>
-                  <label className="text-xs font-semibold text-blue-300">Telegram URL</label>
-                  <input
-                    type="url"
-                    placeholder="https://t.me/..."
-                    value={telegramUrl}
-                    onChange={(e) => setTelegramUrl(e.target.value)}
-                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400"
-                  />
-                </div>
-              </div>
+          </div>
 
+          <div>
+            <label className="text-xs font-semibold text-blue-300">Telegram URL</label>
+            <input
+              type="url"
+              placeholder="https://t.me/..."
+              value={telegramUrl}
+              onChange={(e) => setTelegramUrl(e.target.value)}
+              className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+            />
+          </div>
+        </div>
+
+     
               <button
                 type="submit"
                 disabled={uploading}
