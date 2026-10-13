@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hypeddit — Smart Links для музыкантов",
-  description: "Smart Link и Download Gate для ваших музыкальных релизов.",
+  title: "Dropper",
+  description: "Drop Your Music To Everyone",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
