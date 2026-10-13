@@ -126,11 +126,10 @@ export default function AdminPage() {
       return;
     }
 
-    // Проверка размера файла (до 5 МБ)
     if (file.size > MAX_COVER_SIZE_BYTES) {
       const fileSizeMb = (file.size / (1024 * 1024)).toFixed(1);
       setErrorMsg(`Artwork file is too large (${fileSizeMb} MB). Maximum allowed size is 5 MB.`);
-      e.target.value = ''; // сбрасываем выбранный файл в input
+      e.target.value = '';
       setCoverFile(null);
       return;
     }
@@ -407,81 +406,88 @@ export default function AdminPage() {
                 />
               </div>
 
-   {/* Download URL */}
-          <div>
-            <label className="text-xs font-semibold text-blue-300">Download URL (Google Drive / Dropbox)</label>
-            <input
-              type="url"
-              placeholder="https://drive.google.com/..."
-              value={downloadUrl}
-              onChange={(e) => setDownloadUrl(e.target.value)}
-              className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
-            />
-          </div>
+              {/* Download URL */}
+              <div>
+                <label className="text-xs font-semibold text-blue-300">Download URL (Google Drive / Dropbox)</label>
+                <input
+                  type="url"
+                  placeholder="https://drive.google.com/..."
+                  value={downloadUrl}
+                  onChange={(e) => setDownloadUrl(e.target.value)}
+                  className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+                />
+              </div>
 
-          {/* Streaming Links */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-semibold text-blue-300">Spotify URL</label>
-              <input
-                type="url"
-                placeholder="https://open.spotify.com/..."
-                value={spotifyUrl}
-                onChange={(e) => setSpotifyUrl(e.target.value)}
-                className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
-              />
-            </div>
-            <div>
-              <label className="text-xs font-semibold text-blue-300">Apple Music URL</label>
-              <input
-                type="url"
-                placeholder="https://music.apple.com/..."
-                value={appleMusicUrl}
-                onChange={(e) => setAppleMusicUrl(e.target.value)}
-                className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
-              />
-            </div>
-          </div>
+              {/* Streaming Links */}
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-semibold text-blue-300">SoundCloud URL</label>
+                  <label className="text-xs font-semibold text-blue-300">Spotify URL</label>
                   <input
                     type="url"
-                    placeholder="https://..."
-                    value={soundcloudUrl}
-                    onChange={(e) => setSoundcloudUrl(e.target.value)}
-                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400"
+                    placeholder="https://open.spotify.com/..."
+                    value={spotifyUrl}
+                    onChange={(e) => setSpotifyUrl(e.target.value)}
+                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
                   />
-<div>
-            <label className="text-xs font-semibold text-blue-300">Instagram URL</label>
-            <input
-              type="url"
-              placeholder="https://instagram.com/..."
-              value={instagramUrl}
-              onChange={(e) => setInstagramUrl(e.target.value)}
-              className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
-            />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-blue-300">Apple Music URL</label>
+                  <input
+                    type="url"
+                    placeholder="https://music.apple.com/..."
+                    value={appleMusicUrl}
+                    onChange={(e) => setAppleMusicUrl(e.target.value)}
+                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+                  />
+                </div>
+              </div>
+
+              {/* SoundCloud URL */}
+              <div>
+                <label className="text-xs font-semibold text-blue-300">SoundCloud URL</label>
+                <input
+                  type="url"
+                  placeholder="https://soundcloud.com/..."
+                  value={soundcloudUrl}
+                  onChange={(e) => setSoundcloudUrl(e.target.value)}
+                  className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+                />
+              </div>
+
+              {/* Social Links (Instagram & Telegram) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-semibold text-blue-300">Instagram URL</label>
+                  <input
+                    type="url"
+                    placeholder="https://instagram.com/..."
+                    value={instagramUrl}
+                    onChange={(e) => setInstagramUrl(e.target.value)}
+                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-blue-300">Telegram URL</label>
+                  <input
+                    type="url"
+                    placeholder="https://t.me/..."
+                    value={telegramUrl}
+                    onChange={(e) => setTelegramUrl(e.target.value)}
+                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={uploading}
+                className="w-full py-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-2xl shadow-lg transition-all cursor-pointer"
+              >
+                {uploading ? 'Uploading cover...' : '+ Create Smart Link'}
+              </button>
+            </form>
           </div>
 
-          <div>
-            <label className="text-xs font-semibold text-blue-300">Telegram URL</label>
-            <input
-              type="url"
-              placeholder="https://t.me/..."
-              value={telegramUrl}
-              onChange={(e) => setTelegramUrl(e.target.value)}
-              className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
-            />
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          disabled={uploading}
-          className="w-full py-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-2xl shadow-lg transition-all"
-        >
-          {uploading ? 'Uploading cover...' : '+ Create Smart Link'}
-        </button>
-      </form>
           {/* Releases & Contacts */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-[#0c1324] border border-blue-900/40 rounded-3xl p-6 shadow-xl">
