@@ -450,7 +450,7 @@ export default function AdminPage() {
                     onChange={(e) => setSoundcloudUrl(e.target.value)}
                     className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400"
                   />
-             <div>
+            <div>
             <label className="text-xs font-semibold text-blue-300">Instagram URL</label>
             <input
               type="url"
@@ -473,15 +473,15 @@ export default function AdminPage() {
           </div>
         </div>
 
-     
-              <button
-                type="submit"
-                disabled={uploading}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/30 transition-all cursor-pointer mt-4 uppercase tracking-wider text-xs"
-              >
-                {uploading ? 'Uploading cover...' : '+ Create Smart Link'}
-              </button>
-            </form>
+        <button
+          type="submit"
+          disabled={uploading}
+          className="w-full py-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-2xl shadow-lg transition-all"
+        >
+          {uploading ? 'Uploading cover...' : '+ Create Smart Link'}
+        </button>
+      </form>
+    </div>
           </div>
 
           {/* Releases & Contacts */}
