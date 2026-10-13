@@ -407,40 +407,41 @@ export default function AdminPage() {
                 />
               </div>
 
-              {/* Download URL */}
-              <div>
-                <label className="text-xs font-semibold text-blue-300">Download Link (Google Drive / Dropbox)</label>
-                <input
-                  type="url"
-                  placeholder="https://drive.google.com/..."
-                  value={downloadUrl}
-                  onChange={(e) => setDownloadUrl(e.target.value)}
-                  className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-400 text-xs"
-                />
-              </div>
+   {/* Download URL */}
+          <div>
+            <label className="text-xs font-semibold text-blue-300">Download URL (Google Drive / Dropbox)</label>
+            <input
+              type="url"
+              placeholder="https://drive.google.com/..."
+              value={downloadUrl}
+              onChange={(e) => setDownloadUrl(e.target.value)}
+              className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+            />
+          </div>
 
-              {/* Streaming Links */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-semibold text-blue-300">Spotify URL</label>
-                  <input
-                    type="url"
-                    placeholder="https://..."
-                    value={spotifyUrl}
-                    onChange={(e) => setSpotifyUrl(e.target.value)}
-                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-blue-300">Apple Music URL</label>
-                  <input
-                    type="url"
-                    placeholder="https://..."
-                    value={appleMusicUrl}
-                    onChange={(e) => setAppleMusicUrl(e.target.value)}
-                    className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400"
-                  />
-                </div>
+          {/* Streaming Links */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-semibold text-blue-300">Spotify URL</label>
+              <input
+                type="url"
+                placeholder="https://open.spotify.com/..."
+                value={spotifyUrl}
+                onChange={(e) => setSpotifyUrl(e.target.value)}
+                className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-blue-300">Apple Music URL</label>
+              <input
+                type="url"
+                placeholder="https://music.apple.com/..."
+                value={appleMusicUrl}
+                onChange={(e) => setAppleMusicUrl(e.target.value)}
+                className="w-full mt-1 bg-[#141e36] border border-blue-900/50 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400"
+              />
+            </div>
+          </div>
                 <div>
                   <label className="text-xs font-semibold text-blue-300">SoundCloud URL</label>
                   <input
@@ -481,7 +482,6 @@ export default function AdminPage() {
           {uploading ? 'Uploading cover...' : '+ Create Smart Link'}
         </button>
       </form>
-    </div>
           {/* Releases & Contacts */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-[#0c1324] border border-blue-900/40 rounded-3xl p-6 shadow-xl">
