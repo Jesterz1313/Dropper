@@ -195,7 +195,7 @@ export default function ReleaseGatePage({ params }: PageProps) {
       </div>
 
       <div className="mt-8 text-xs font-semibold tracking-wider text-slate-500/60 uppercase">
-        Powered by Dropper • By: Andrew Jester
+        Powered by Dropper • By: Pool Team
       </div>
     </main>
   );
