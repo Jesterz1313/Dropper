@@ -26,7 +26,7 @@ export default function HomePage() {
 
       {/* Footer Signature */}
       <div className="absolute bottom-6 right-8 text-xs font-semibold tracking-wider text-slate-500/80 uppercase z-10">
-        By: Andrew Jester
+        By: Pool Team
       </div>
     </main>
   );
